@@ -1,15 +1,16 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class SplashScreen extends StatefulWidget {
   final String imagePath;
   final Duration duration;
 
   const SplashScreen({
-    Key? key,
+    super.key,
     required this.imagePath,
     this.duration = const Duration(seconds: 1),
-  }) : super(key: key);
+  });
 
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -29,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen>
     _controller.forward();
 
     Timer(widget.duration, () {
-      Navigator.of(context).pushReplacementNamed('/home');
+      Navigator.of(context).pushReplacementNamed('/auth');
     });
   }
 
@@ -42,12 +43,14 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: Center(
         child: FadeTransition(
           opacity: _controller,
-          child: Image.asset(
-            widget.imagePath,
+          child: CachedNetworkImage(
+            imageUrl: widget.imagePath,
+            placeholder: (context, url) => const CircularProgressIndicator(),
+            errorWidget: (context, url, error) => const Icon(Icons.error),
             width: 300,
             height: 300,
           ),
