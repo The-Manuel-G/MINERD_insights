@@ -38,7 +38,7 @@ class _LoginFormState extends State<LoginForm> {
 
   Future<void> _iniciarSesion() async {
     final url =
-        Uri.parse('https://adamix.net/defensa_civil/def/iniciar_sesion.php');
+        Uri.parse('https://adamix.net/minerd/def/iniciar_sesion.php');
     final response = await http.post(url, body: {
       'cedula': _identification,
       'clave': _password,
