@@ -3,12 +3,14 @@ import '../../components/HomeComponent.dart';
 import '../../components/BannerComponent.dart'; // Asegúrate de importar el BannerComponent
 
 class InicioScreen extends StatelessWidget {
+  const InicioScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
+          const SliverAppBar(
             expandedHeight:
                 200.0, // Ajusta la altura del AppBar según sea necesario
             pinned: true,
@@ -19,7 +21,7 @@ class InicioScreen extends StatelessWidget {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                HomeComponent(), // Agrega el HomeComponent aquí
+                const HomeComponent(), // Agrega el HomeComponent aquí
               ],
             ),
           ),

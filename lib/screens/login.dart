@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -6,15 +7,17 @@ import 'token.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AccederScreen extends StatelessWidget {
+  const AccederScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Iniciar Sesión'),
+        title: const Text('Iniciar Sesión'),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
       ),
-      body: Padding(
+      body: const Padding(
         padding: EdgeInsets.all(20.0),
         child: Center(
           child: SingleChildScrollView(
@@ -27,6 +30,8 @@ class AccederScreen extends StatelessWidget {
 }
 
 class LoginForm extends StatefulWidget {
+  const LoginForm({super.key});
+
   @override
   _LoginFormState createState() => _LoginFormState();
 }
@@ -47,7 +52,9 @@ class _LoginFormState extends State<LoginForm> {
     if (response.statusCode == 200) {
       final responseData = jsonDecode(response.body);
       final bool success = responseData['exito'];
-      print(responseData);
+      if (kDebugMode) {
+        print(responseData);
+      }
       if (success) {
         TokenApi tokenApi = TokenApi();
         final String token = responseData['datos']['token'];
@@ -57,7 +64,7 @@ class _LoginFormState extends State<LoginForm> {
         await prefs.setBool('isLoggedIn', true);
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => MyApp()),
+          MaterialPageRoute(builder: (context) => const MyApp()),
         );
       } else {
         final String errorMessage = responseData['mensaje'];
@@ -67,7 +74,9 @@ class _LoginFormState extends State<LoginForm> {
         ));
       }
     } else {
-      print('Error en el inicio de sesión: ${response.body}');
+      if (kDebugMode) {
+        print('Error en el inicio de sesión: ${response.body}');
+      }
     }
   }
 
@@ -79,7 +88,7 @@ class _LoginFormState extends State<LoginForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           TextFormField(
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: 'Cédula',
               border: OutlineInputBorder(),
               prefixIcon: Icon(Icons.account_circle),
@@ -94,9 +103,9 @@ class _LoginFormState extends State<LoginForm> {
               _identification = value!;
             },
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           TextFormField(
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: 'Clave',
               border: OutlineInputBorder(),
               prefixIcon: Icon(Icons.lock),
@@ -112,7 +121,7 @@ class _LoginFormState extends State<LoginForm> {
               _password = value!;
             },
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {
@@ -120,12 +129,12 @@ class _LoginFormState extends State<LoginForm> {
                 _iniciarSesion();
               }
             },
-            child: Text('Iniciar sesión'),
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white,
               backgroundColor: Colors.blue,
-              padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
             ),
+            child: const Text('Iniciar sesión'),
           ),
         ],
       ),

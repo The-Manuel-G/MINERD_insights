@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 class BannerComponent extends StatefulWidget {
+  const BannerComponent({super.key});
+
   @override
   _BannerComponentState createState() => _BannerComponentState();
 }
@@ -18,7 +20,7 @@ class _BannerComponentState extends State<BannerComponent> {
   @override
   void initState() {
     super.initState();
-    Timer.periodic(Duration(seconds: 3), (Timer timer) {
+    Timer.periodic(const Duration(seconds: 3), (Timer timer) {
       if (_currentPage < _images.length - 1) {
         _currentPage++;
       } else {
@@ -27,7 +29,7 @@ class _BannerComponentState extends State<BannerComponent> {
 
       _pageController.animateToPage(
         _currentPage,
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         curve: Curves.easeIn,
       );
     });
@@ -69,8 +71,8 @@ class _BannerComponentState extends State<BannerComponent> {
               children: _images.map((image) {
                 int index = _images.indexOf(image);
                 return AnimatedContainer(
-                  duration: Duration(milliseconds: 300),
-                  margin: EdgeInsets.symmetric(horizontal: 4.0),
+                  duration: const Duration(milliseconds: 300),
+                  margin: const EdgeInsets.symmetric(horizontal: 4.0),
                   width: _currentPage == index ? 12.0 : 8.0,
                   height: _currentPage == index ? 12.0 : 8.0,
                   decoration: BoxDecoration(
