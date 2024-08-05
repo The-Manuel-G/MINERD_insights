@@ -41,6 +41,8 @@ class Sidebar extends StatelessWidget {
     );
   }
 
+  final bool isLoggedIn = false; // Define isLoggedIn
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -139,6 +141,19 @@ class Sidebar extends StatelessWidget {
               _confirmLogout(context);
             },
           ),
+          if (!isLoggedIn)
+            ListTile(
+              leading: const Icon(Icons.exit_to_app),
+              title: const Text('Acceder'),
+              tileColor: Colors.blue,
+              textColor: Colors.white,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()), // Asegúrate de que 'LoginScreen' esté definido en tu proyecto
+                );
+              },
+            ),
         ],
       ),
     );

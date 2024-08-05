@@ -1,5 +1,4 @@
-//
-//  Generated file. Do not edit.
+
 //
 
 import FlutterMacOS
@@ -12,3 +11,4 @@ func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   PathProviderPlugin.register(with: registry.registrar(forPlugin: "PathProviderPlugin"))
   SqflitePlugin.register(with: registry.registrar(forPlugin: "SqflitePlugin"))
 }
+
