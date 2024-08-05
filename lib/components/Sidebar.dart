@@ -8,6 +8,9 @@ import '../../screens/Miembro.dart';
 import '../../screens/ServiciosScreen.dart';
 import '../../screens/VideroScreen.dart';
 import '../../screens/LoginScreen.dart'; // Asegúrate de que esta ruta sea correcta
+import '../../screens/ReportarVisita.dart';
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Sidebar extends StatelessWidget {
   const Sidebar({super.key});
@@ -160,6 +163,18 @@ class Sidebar extends StatelessWidget {
             },
           ),
           
+           ListTile(
+            leading: FaIcon(FontAwesomeIcons.fileAlt), // Icono para "Miembros"
+            title: Text('ReportarVisita'),
+            onTap: () {
+              Navigator.pop(context); // Cierra el sidebar
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ReporteVistaScreen()),
+              );
+            },
+          ),
+          // Puedes agregar más ListTile para más opciones si es necesario
         ],
       ),
     );
