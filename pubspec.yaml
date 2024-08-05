@@ -68,6 +68,10 @@ flutter:
     - assets/ariel.jpeg
     - assets/carlos.jpeg
     - assets/raynier.jpeg
+    - assets/images/Educacion.jpeg
+    - assets/images/educacionbanner1.jpeg
+    - assets/images/educacionbanner2.jpeg
+    - assets/images/educacionbanner3.jpeg
 
   #   - images/a_dot_ham.jpeg
 

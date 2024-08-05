@@ -6,6 +6,8 @@ import 'package:minerd/screens/MapaScreen.dart';
 import 'package:minerd/screens/NoticiaScreen.dart';
 import 'package:minerd/screens/SplashScreen.dart';
 import 'package:minerd/screens/auth_screen.dart';
+import '../../screens/horoscope_screen.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -45,9 +47,10 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
   final List<Widget> _screens = [
-    const InicioScreen(),
-    const NoticiasScreen(),
+    InicioScreen(),
+    NoticiasScreen(),
     MapaScreen(),
+    HoroscopeScreen(),
   ];
 
   void _onItemTapped(int index) {
