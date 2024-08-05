@@ -51,7 +51,8 @@ class Sidebar extends StatelessWidget {
         children: <Widget>[
           const DrawerHeader(
             decoration: BoxDecoration(
-              color: Color.fromARGB(255, 0, 112, 216), // Estilo de color del login
+              color:
+                  Color.fromARGB(255, 0, 112, 216), // Estilo de color del login
             ),
             child: Text(
               'Sidebar Header',
@@ -81,7 +82,8 @@ class Sidebar extends StatelessWidget {
               Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const ServiciosScreen()),
+                MaterialPageRoute(
+                    builder: (context) => const ServiciosScreen()),
               );
             },
           ),
@@ -105,7 +107,8 @@ class Sidebar extends StatelessWidget {
               Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const AlberguesScreen()),
+                MaterialPageRoute(
+                    builder: (context) => const AlberguesScreen()),
               );
             },
           ),
@@ -117,7 +120,8 @@ class Sidebar extends StatelessWidget {
               Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => MedidaPreventivaScreen()),
+                MaterialPageRoute(
+                    builder: (context) => MedidaPreventivaScreen()),
               );
             },
           ),
@@ -129,7 +133,7 @@ class Sidebar extends StatelessWidget {
               Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => MiembroScreen()),
+                MaterialPageRoute(builder: (context) => AcercaDeScreen()),
               );
             },
           ),
@@ -150,7 +154,9 @@ class Sidebar extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()), // Asegúrate de que 'LoginScreen' esté definido en tu proyecto
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          LoginScreen()), // Asegúrate de que 'LoginScreen' esté definido en tu proyecto
                 );
               },
             ),
@@ -159,12 +165,19 @@ class Sidebar extends StatelessWidget {
     );
   }
 
-  Widget _buildDrawerItem(BuildContext context, {required IconData icon, required String text, required VoidCallback onTap}) {
+  Widget _buildDrawerItem(BuildContext context,
+      {required IconData icon,
+      required String text,
+      required VoidCallback onTap}) {
     return ListTile(
-      leading: FaIcon(icon, color: const Color.fromARGB(255, 0, 112, 216)), // Estilo de color del login
+      leading: FaIcon(icon,
+          color: const Color.fromARGB(
+              255, 0, 112, 216)), // Estilo de color del login
       title: Text(
         text,
-        style: const TextStyle(color: Color.fromARGB(255, 0, 112, 216)), // Estilo de color del login
+        style: const TextStyle(
+            color:
+                Color.fromARGB(255, 0, 112, 216)), // Estilo de color del login
       ),
       onTap: onTap,
     );
