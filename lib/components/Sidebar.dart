@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:minerd/screens/CentrosScreen.dart';
 import '../../screens/AlberguesScreen.dart';
 import '../../screens/HistoriaScreen.dart';
 import '../../screens/MedidaPreventivaScreen.dart';
@@ -62,6 +63,19 @@ class Sidebar extends StatelessWidget {
               ),
             ),
           ),
+       
+           _buildDrawerItem(
+            context,
+            icon: FontAwesomeIcons.school,
+            text: 'Centros Educativos',
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const CentrosScreen()),
+              );
+            },
+          ),
           _buildDrawerItem(
             context,
             icon: FontAwesomeIcons.history,
@@ -70,7 +84,7 @@ class Sidebar extends StatelessWidget {
               Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => HistoriaScreen()),
+                MaterialPageRoute(builder: (context) => const HistoriaScreen()),
               );
             },
           ),
@@ -145,21 +159,7 @@ class Sidebar extends StatelessWidget {
               _confirmLogout(context);
             },
           ),
-          if (!isLoggedIn)
-            ListTile(
-              leading: const Icon(Icons.exit_to_app),
-              title: const Text('Acceder'),
-              tileColor: Colors.blue,
-              textColor: Colors.white,
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          LoginScreen()), // Asegúrate de que 'LoginScreen' esté definido en tu proyecto
-                );
-              },
-            ),
+          
         ],
       ),
     );

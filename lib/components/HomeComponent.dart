@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../screens/horoscope_screen.dart';
 
 class HomeComponent extends StatelessWidget {
+  const HomeComponent({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -10,9 +12,9 @@ class HomeComponent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(20.0),
             color: Colors.blueAccent,
-            child: Column(
+            child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
@@ -35,15 +37,15 @@ class HomeComponent extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
                 Card(
                   child: ListTile(
                     leading:
-                        Icon(Icons.report_problem, color: Colors.blueAccent),
-                    title: Text('Registros de Incidencias'),
-                    subtitle: Text(
+                        const Icon(Icons.report_problem, color: Colors.blueAccent),
+                    title: const Text('Registros de Incidencias'),
+                    subtitle: const Text(
                         'Accede a nuestros registros de incidencias disponibles.'),
                     onTap: () {
                       // Navegar a la página de registros de incidencias
@@ -53,9 +55,9 @@ class HomeComponent extends StatelessWidget {
                 Card(
                   child: ListTile(
                     leading:
-                        Icon(Icons.video_library, color: Colors.blueAccent),
-                    title: Text('Videos'),
-                    subtitle: Text('Mira videos de centros educativos'),
+                        const Icon(Icons.video_library, color: Colors.blueAccent),
+                    title: const Text('Videos'),
+                    subtitle: const Text('Mira videos de centros educativos'),
                     onTap: () {
                       // Navegar a la página de videos
                     },
@@ -63,9 +65,9 @@ class HomeComponent extends StatelessWidget {
                 ),
                 Card(
                   child: ListTile(
-                    leading: Icon(Icons.casino, color: Colors.blueAccent),
-                    title: Text('Horóscopo'),
-                    subtitle: Text('Consulta tu horóscopo diario.'),
+                    leading: const Icon(Icons.casino, color: Colors.blueAccent),
+                    title: const Text('Horóscopo'),
+                    subtitle: const Text('Consulta tu horóscopo diario.'),
                     onTap: () {
                       Navigator.push(
                         context,
@@ -78,9 +80,9 @@ class HomeComponent extends StatelessWidget {
                 Card(
                   child: ListTile(
                     leading:
-                        Icon(Icons.contact_support, color: Colors.blueAccent),
-                    title: Text('Acerca de'),
-                    subtitle: Text('Contacta a nuestro equipo de soporte.'),
+                        const Icon(Icons.contact_support, color: Colors.blueAccent),
+                    title: const Text('Acerca de'),
+                    subtitle: const Text('Contacta a nuestro equipo de soporte.'),
                     onTap: () {
                       // Navegar a la página de soporte
                     },
