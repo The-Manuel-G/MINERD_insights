@@ -1,14 +1,46 @@
-import 'package:minerd/screens/login.dart';
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../screens/AlberguesScreen.dart';
 import '../../screens/HistoriaScreen.dart';
 import '../../screens/MedidaPreventivaScreen.dart';
 import '../../screens/Miembro.dart';
 import '../../screens/ServiciosScreen.dart';
 import '../../screens/VideroScreen.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../../screens/LoginScreen.dart'; // Asegúrate de que esta ruta sea correcta
 
 class Sidebar extends StatelessWidget {
+  const Sidebar({super.key});
+
+  void _confirmLogout(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirmar Cierre de Sesión'),
+          content: const Text('¿Estás seguro de que quieres cerrar sesión?'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancelar'),
+              onPressed: () {
+                Navigator.of(context).pop(); // Cierra el diálogo
+              },
+            ),
+            TextButton(
+              child: const Text('Salir'),
+              onPressed: () {
+                Navigator.of(context).pop(); // Cierra el diálogo
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginScreen()),
+                );
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   final bool isLoggedIn = false; // Define isLoggedIn
 
   @override
@@ -17,9 +49,9 @@ class Sidebar extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          DrawerHeader(
+          const DrawerHeader(
             decoration: BoxDecoration(
-              color: Colors.blue,
+              color: Color.fromARGB(255, 0, 112, 216), // Estilo de color del login
             ),
             child: Text(
               'Sidebar Header',
@@ -29,77 +61,84 @@ class Sidebar extends StatelessWidget {
               ),
             ),
           ),
-          ListTile(
-            leading: FaIcon(
-                FontAwesomeIcons.history), // Corrected icon for "Historia"
-            title: Text('Historia'),
+          _buildDrawerItem(
+            context,
+            icon: FontAwesomeIcons.history,
+            text: 'Historia',
             onTap: () {
-              Navigator.pop(context); // Cierra el sidebar
+              Navigator.pop(context);
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => HistoriaScreen()),
               );
             },
           ),
-          ListTile(
-            leading:
-                FaIcon(FontAwesomeIcons.newspaper), // Icono para "Servicios"
-            title: Text('Servicios'),
+          _buildDrawerItem(
+            context,
+            icon: FontAwesomeIcons.newspaper,
+            text: 'Servicios',
             onTap: () {
-              Navigator.pop(context); // Cierra el sidebar
+              Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ServiciosScreen()),
+                MaterialPageRoute(builder: (context) => const ServiciosScreen()),
               );
             },
           ),
-          ListTile(
-            leading: FaIcon(FontAwesomeIcons.video), // Icono para "Videos"
-            title: Text('Videos'),
+          _buildDrawerItem(
+            context,
+            icon: FontAwesomeIcons.video,
+            text: 'Videos',
             onTap: () {
-              Navigator.pop(context); // Cierra el sidebar
+              Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => VideoScreen()),
+                MaterialPageRoute(builder: (context) => const VideoScreen()),
               );
             },
           ),
-          ListTile(
-            leading:
-                FaIcon(FontAwesomeIcons.hospital), // Icono para "Albergues"
-            title: Text('Albergues'),
+          _buildDrawerItem(
+            context,
+            icon: FontAwesomeIcons.hospital,
+            text: 'Albergues',
             onTap: () {
-              Navigator.pop(context); // Cierra el sidebar
+              Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => AlberguesScreen()),
+                MaterialPageRoute(builder: (context) => const AlberguesScreen()),
               );
             },
           ),
-          ListTile(
-            leading: FaIcon(
-                FontAwesomeIcons.shieldAlt), // Icono para "Medida Preventiva"
-            title: Text('Medida Preventiva'),
+          _buildDrawerItem(
+            context,
+            icon: FontAwesomeIcons.shieldAlt,
+            text: 'Medida Preventiva',
             onTap: () {
-              Navigator.pop(context); // Cierra el sidebar
+              Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => MedidaPreventivaScreen()),
+                MaterialPageRoute(builder: (context) => MedidaPreventivaScreen()),
               );
             },
           ),
-          ListTile(
-            leading: FaIcon(FontAwesomeIcons.user), // Icono para "Acerca De"
-            title: Text('Acerca De'),
+          _buildDrawerItem(
+            context,
+            icon: FontAwesomeIcons.user,
+            text: 'Miembros',
             onTap: () {
-              Navigator.pop(context); // Cierra el sidebar
+              Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        AcercaDeScreen()), // Cambiado a MiembroScreen
+                MaterialPageRoute(builder: (context) => MiembroScreen()),
               );
+            },
+          ),
+          _buildDrawerItem(
+            context,
+            icon: Icons.logout,
+            text: 'Cerrar Sesión',
+            onTap: () {
+              _confirmLogout(context);
             },
           ),
           if (!isLoggedIn)
@@ -111,15 +150,23 @@ class Sidebar extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          AccederScreen()), // Asegúrate de que 'AccederScreen' esté definido en tu proyecto
+                  MaterialPageRoute(builder: (context) => LoginScreen()), // Asegúrate de que 'LoginScreen' esté definido en tu proyecto
                 );
               },
             ),
-          // Puedes agregar más ListTile para más opciones si es necesario
         ],
       ),
+    );
+  }
+
+  Widget _buildDrawerItem(BuildContext context, {required IconData icon, required String text, required VoidCallback onTap}) {
+    return ListTile(
+      leading: FaIcon(icon, color: const Color.fromARGB(255, 0, 112, 216)), // Estilo de color del login
+      title: Text(
+        text,
+        style: const TextStyle(color: Color.fromARGB(255, 0, 112, 216)), // Estilo de color del login
+      ),
+      onTap: onTap,
     );
   }
 }
