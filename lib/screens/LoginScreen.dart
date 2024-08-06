@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:minerd/screens/RegistroScreen.dart';
+import 'package:minerd/screens/RecoverPassScreen.dart'; // Asegúrate de importar la pantalla de recuperación de contraseña
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -17,20 +18,40 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _claveController = TextEditingController();
 
   Future<void> _login() async {
-    final response = await http.post(
-      Uri.parse('https://adamix.net/minerd/def/iniciar_sesion.php'),
-      body: {
-        'cedula': _cedulaController.text,
-        'clave': _claveController.text,
-      },
-    );
+    try {
+      final response = await http.post(
+        Uri.parse('https://adamix.net/minerd/def/iniciar_sesion.php'),
+        body: {
+          'cedula': _cedulaController.text,
+          'clave': _claveController.text,
+        },
+      );
 
-    final data = jsonDecode(response.body);
-    if (data['exito']) {
-      Navigator.pushReplacementNamed(context, '/home');
-    } else {
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+
+        if (data['exito']) {
+          String token = data['token'] ?? '';
+
+          // Guardar el token en SharedPreferences
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          await prefs.setString('token', token);
+
+          Navigator.pushReplacementNamed(context, '/home');
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(data['mensaje'] ?? 'Error desconocido')),
+          );
+        }
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error en la solicitud: ${response.statusCode}')),
+        );
+      }
+    } catch (e) {
+      print('Error al iniciar sesión: $e');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(data['mensaje'])),
+        SnackBar(content: Text('Error al iniciar sesión: $e')),
       );
     }
   }
@@ -175,6 +196,23 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         child: const Text('REGÍSTRATE',
                             style: TextStyle(fontSize: 18)),
+                      ),
+                      const SizedBox(height: 20),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const RecoverPassScreen()),
+                          );
+                        },
+                        child: Text(
+                          '¿Olvidaste tu contraseña?',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 0, 112, 216),
+                            fontSize: 16,
+                          ),
+                        ),
                       ),
                     ],
                   ),
