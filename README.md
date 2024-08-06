@@ -1,16 +1,21 @@
-# minerd
+# Proyecto Final MINERD
 
-A new Flutter project.
+Compuesto por:
 
-## Getting Started
+- Ariel Manuel Naranjo. 2020-10742
 
-This project is a starting point for a Flutter application.
+- Manuel de Jesús de la Cruz Solano. 2021-1967
 
-A few resources to get you started if this is your first Flutter project:
+- Daniela Santana Doble. 2019-8755
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Carlos Alberto Feliz. 2021-2322
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Raynier Zorrilla. 2022-1460
+
+# APK
+
+https://drive.google.com/drive/folders/1tf2xrLs5X_CIRTY2gaxA9anrg0lOdtKZ?usp=sharing
+
+# Video de Presentación
+
+https://drive.google.com/drive/folders/1TkOiAO9GqY8oj8lTA5G3PhM98gL4JG9z?usp=sharing
