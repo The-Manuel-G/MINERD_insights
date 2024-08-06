@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:minerd/screens/Miembro.dart';
 
 import '../screens/horoscope_screen.dart';
 
@@ -42,8 +43,8 @@ class HomeComponent extends StatelessWidget {
               children: [
                 Card(
                   child: ListTile(
-                    leading:
-                        const Icon(Icons.report_problem, color: Colors.blueAccent),
+                    leading: const Icon(Icons.report_problem,
+                        color: Colors.blueAccent),
                     title: const Text('Registros de Incidencias'),
                     subtitle: const Text(
                         'Accede a nuestros registros de incidencias disponibles.'),
@@ -54,8 +55,8 @@ class HomeComponent extends StatelessWidget {
                 ),
                 Card(
                   child: ListTile(
-                    leading:
-                        const Icon(Icons.video_library, color: Colors.blueAccent),
+                    leading: const Icon(Icons.video_library,
+                        color: Colors.blueAccent),
                     title: const Text('Videos'),
                     subtitle: const Text('Mira videos de centros educativos'),
                     onTap: () {
@@ -79,12 +80,16 @@ class HomeComponent extends StatelessWidget {
                 ),
                 Card(
                   child: ListTile(
-                    leading:
-                        const Icon(Icons.contact_support, color: Colors.blueAccent),
+                    leading: const Icon(Icons.contact_support,
+                        color: Colors.blueAccent),
                     title: const Text('Acerca de'),
-                    subtitle: const Text('Contacta a nuestro equipo de soporte.'),
+                    subtitle:
+                        const Text('Contacta a nuestro equipo de soporte.'),
                     onTap: () {
-                      // Navegar a la página de soporte
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AcercaDeScreen()));
                     },
                   ),
                 ),

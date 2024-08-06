@@ -16,55 +16,43 @@ class AcercaDe {
 
 class DetallesPersonaScreen extends StatelessWidget {
   final AcercaDe persona;
-  final String backgroundImage;
 
-  const DetallesPersonaScreen(
-      {super.key, required this.persona, required this.backgroundImage});
+  const DetallesPersonaScreen({super.key, required this.persona});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Detalles',
-            style: TextStyle(
-                color: Colors
-                    .white)), // Establecer el color del texto en la barra de aplicaciones
-        backgroundColor: Colors.blue,
+        title: const Text('Detalles', style: TextStyle(color: Colors.white)),
+        backgroundColor: const Color.fromARGB(255, 0, 112, 216),
         iconTheme: const IconThemeData(color: Colors.white),
       ),
-      body: Stack(
-        children: [
-          Image.asset(
-            backgroundImage,
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            fit: BoxFit.cover,
-          ),
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircleAvatar(
-                  backgroundImage: AssetImage(persona.foto),
-                  radius: 80,
-                ),
-                const SizedBox(height: 20),
-                Text(
-                  persona.nombre,
-                  style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                ),
-                const SizedBox(height: 10),
-                Text('Teléfono: ${persona.numeroTelefono}',
-                    style: const TextStyle(color: Colors.white)),
-                Text('Correo: ${persona.correo}',
-                    style: const TextStyle(color: Colors.white)),
-              ],
+      body: Container(
+        color: Colors.white,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(height: 40),
+            CircleAvatar(
+              backgroundImage: AssetImage(persona.foto),
+              radius: 80,
             ),
-          ),
-        ],
+            const SizedBox(height: 20),
+            Text(
+              persona.nombre,
+              style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black),
+            ),
+            const SizedBox(height: 10),
+            Text('Teléfono: ${persona.numeroTelefono}',
+                style: const TextStyle(color: Colors.black)),
+            Text('Correo: ${persona.correo}',
+                style: const TextStyle(color: Colors.black)),
+          ],
+        ),
       ),
     );
   }
@@ -114,59 +102,86 @@ class AcercaDeScreen extends StatelessWidget {
           'Acerca De',
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color.fromARGB(255, 0, 112, 216),
         iconTheme: const IconThemeData(color: Colors.white),
       ),
-      body: Stack(
-        children: [
-          Image.asset(
-            'assets/compu.gif',
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            fit: BoxFit.cover,
-          ),
-          ListView.builder(
-            itemCount: personas.length,
-            itemBuilder: (context, index) {
-              final persona = personas[index];
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => DetallesPersonaScreen(
-                        persona: persona,
-                        backgroundImage: 'assets/compu.gif',
-                      ),
-                    ),
-                  );
-                },
-                child: ListTile(
-                  leading: CircleAvatar(
-                    backgroundImage: AssetImage(persona.foto),
+      body: Container(
+        color: Colors.white,
+        child: Column(
+          children: [
+            const SizedBox(height: 20),
+            Center(
+              child: Image.asset(
+                'assets/images/educacionbanner1.jpeg',
+                width: 300, // Más grande
+                height: 300, // Más grande
+                fit: BoxFit.contain,
+              ),
+            ),
+            const SizedBox(height: 20),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2, // Dos columnas
+                    childAspectRatio:
+                        3, // Reducir el tamaño de los contenedores
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
                   ),
-                  title: Text(
-                    persona.nombre,
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Teléfono: ${persona.numeroTelefono}',
-                        style: const TextStyle(color: Colors.white),
+                  itemCount: personas.length,
+                  itemBuilder: (context, index) {
+                    final persona = personas[index];
+                    return Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.blue.withOpacity(0.5),
+                            spreadRadius: 5,
+                            blurRadius: 7,
+                            offset: const Offset(
+                                0, 3), // Cambia la posición de la sombra
+                          ),
+                        ],
                       ),
-                      Text(
-                        'Correo: ${persona.correo}',
-                        style: const TextStyle(color: Colors.white),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CircleAvatar(
+                            backgroundImage: AssetImage(persona.foto),
+                            radius: 30, // Reducir el tamaño del avatar
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            persona.nombre,
+                            style: const TextStyle(
+                                fontSize: 16, // Reducir el tamaño del texto
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            'Teléfono: ${persona.numeroTelefono}',
+                            style: const TextStyle(
+                                color: Colors.black, fontSize: 14),
+                          ),
+                          Text(
+                            'Correo: ${persona.correo}',
+                            style: const TextStyle(
+                                color: Colors.black, fontSize: 14),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    );
+                  },
                 ),
-              );
-            },
-          ),
-        ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
