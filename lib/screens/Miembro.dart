@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 class AcercaDe {
   final String foto;
   final String nombre;
@@ -29,6 +30,7 @@ class DetallesPersonaScreen extends StatelessWidget {
       ),
       body: Container(
         color: Colors.white,
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -42,18 +44,77 @@ class DetallesPersonaScreen extends StatelessWidget {
             Text(
               persona.nombre,
               style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black),
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF333333),
+              ),
             ),
             const SizedBox(height: 10),
-            Text('Teléfono: ${persona.numeroTelefono}',
-                style: const TextStyle(color: Colors.black)),
-            Text('Correo: ${persona.correo}',
-                style: const TextStyle(color: Colors.black)),
+            _buildContactInfo(
+              icon: Icons.phone,
+              text: persona.numeroTelefono,
+              color: Colors.blueGrey,
+            ),
+            const SizedBox(height: 10),
+            _buildContactInfo(
+              icon: Icons.email,
+              text: persona.correo,
+              color: Colors.blueGrey,
+            ),
+            const SizedBox(height: 30),
+            ElevatedButton.icon(
+              onPressed: () {},
+              icon: const Icon(Icons.call),
+              label: const Text('Llamar'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color.fromARGB(255, 0, 112, 216),
+                foregroundColor: Colors.white,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            ElevatedButton.icon(
+              onPressed: () {},
+              icon: const Icon(Icons.email),
+              label: const Text('Enviar Email'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color.fromARGB(255, 0, 112, 216),
+                foregroundColor: Colors.white,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+              ),
+            ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildContactInfo({
+    required IconData icon,
+    required String text,
+    required Color color,
+  }) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(icon, color: color),
+        const SizedBox(width: 10),
+        Text(
+          text,
+          style: TextStyle(
+            color: color,
+            fontSize: 18,
+          ),
+        ),
+      ],
     );
   }
 }
@@ -106,7 +167,7 @@ class AcercaDeScreen extends StatelessWidget {
         iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: Container(
-        color: Colors.white,
+        color: const Color(0xFFF1F5FB),
         child: Column(
           children: [
             const SizedBox(height: 20),
@@ -114,8 +175,8 @@ class AcercaDeScreen extends StatelessWidget {
               child: Image.asset(
                 'assets/images/educacionbanner1.jpeg',
                 width: 300, // Más grande
-                height: 300, // Más grande
-                fit: BoxFit.contain,
+                height: 200, // Más grande
+                fit: BoxFit.cover,
               ),
             ),
             const SizedBox(height: 20),
@@ -125,55 +186,61 @@ class AcercaDeScreen extends StatelessWidget {
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2, // Dos columnas
-                    childAspectRatio:
-                        3, // Reducir el tamaño de los contenedores
+                    childAspectRatio: 0.75, // Mejor proporción
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
                   ),
                   itemCount: personas.length,
                   itemBuilder: (context, index) {
                     final persona = personas[index];
-                    return Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.blue.withOpacity(0.5),
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                            offset: const Offset(
-                                0, 3), // Cambia la posición de la sombra
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                DetallesPersonaScreen(persona: persona),
                           ),
-                        ],
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CircleAvatar(
-                            backgroundImage: AssetImage(persona.foto),
-                            radius: 30, // Reducir el tamaño del avatar
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            persona.nombre,
-                            style: const TextStyle(
-                                fontSize: 16, // Reducir el tamaño del texto
+                        );
+                      },
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        elevation: 5,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CircleAvatar(
+                              backgroundImage: AssetImage(persona.foto),
+                              radius: 40,
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              persona.nombre,
+                              style: const TextStyle(
+                                fontSize: 18,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
-                          const SizedBox(height: 5),
-                          Text(
-                            'Teléfono: ${persona.numeroTelefono}',
-                            style: const TextStyle(
-                                color: Colors.black, fontSize: 14),
-                          ),
-                          Text(
-                            'Correo: ${persona.correo}',
-                            style: const TextStyle(
-                                color: Colors.black, fontSize: 14),
-                          ),
-                        ],
+                                color: Color(0xFF333333),
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            Text(
+                              'Teléfono: ${persona.numeroTelefono}',
+                              style: const TextStyle(
+                                color: Colors.black54,
+                                fontSize: 14,
+                              ),
+                            ),
+                            Text(
+                              'Correo: ${persona.correo}',
+                              style: const TextStyle(
+                                color: Colors.black54,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   },

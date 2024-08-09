@@ -5,6 +5,8 @@ import 'dart:convert';
 import 'package:minerd/main.dart';
 import 'token.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:google_fonts/google_fonts.dart'; // Importa google_fonts para fuentes modernas
+import 'package:flutter_animate/flutter_animate.dart'; // Importa flutter_animate para animaciones
 
 class AccederScreen extends StatelessWidget {
   const AccederScreen({super.key});
@@ -40,13 +42,21 @@ class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
   late String _identification;
   late String _password;
+  bool _isLoading = false;
 
   Future<void> _iniciarSesion() async {
-    final url =
-        Uri.parse('https://adamix.net/minerd/def/iniciar_sesion.php');
+    setState(() {
+      _isLoading = true; // Muestra el indicador de carga
+    });
+
+    final url = Uri.parse('https://adamix.net/minerd/def/iniciar_sesion.php');
     final response = await http.post(url, body: {
       'cedula': _identification,
       'clave': _password,
+    });
+
+    setState(() {
+      _isLoading = false; // Oculta el indicador de carga
     });
 
     if (response.statusCode == 200) {
@@ -77,6 +87,10 @@ class _LoginFormState extends State<LoginForm> {
       if (kDebugMode) {
         print('Error en el inicio de sesión: ${response.body}');
       }
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Error en el servidor, intenta de nuevo.'),
+        backgroundColor: Colors.red,
+      ));
     }
   }
 
@@ -88,10 +102,13 @@ class _LoginFormState extends State<LoginForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           TextFormField(
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               labelText: 'Cédula',
-              border: OutlineInputBorder(),
-              prefixIcon: Icon(Icons.account_circle),
+              labelStyle: GoogleFonts.roboto(
+                textStyle: TextStyle(color: Colors.grey[700]),
+              ),
+              border: const OutlineInputBorder(),
+              prefixIcon: const Icon(Icons.account_circle),
             ),
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -102,13 +119,16 @@ class _LoginFormState extends State<LoginForm> {
             onSaved: (value) {
               _identification = value!;
             },
-          ),
+          ).animate().fadeIn(duration: 500.ms), // Animación de entrada suave
           const SizedBox(height: 20),
           TextFormField(
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               labelText: 'Clave',
-              border: OutlineInputBorder(),
-              prefixIcon: Icon(Icons.lock),
+              labelStyle: GoogleFonts.roboto(
+                textStyle: TextStyle(color: Colors.grey[700]),
+              ),
+              border: const OutlineInputBorder(),
+              prefixIcon: const Icon(Icons.lock),
             ),
             obscureText: true,
             validator: (value) {
@@ -120,22 +140,26 @@ class _LoginFormState extends State<LoginForm> {
             onSaved: (value) {
               _password = value!;
             },
-          ),
+          ).animate().fadeIn(duration: 500.ms), // Animación de entrada suave
           const SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                _formKey.currentState!.save();
-                _iniciarSesion();
-              }
-            },
-            style: ElevatedButton.styleFrom(
-              foregroundColor: Colors.white,
-              backgroundColor: Colors.blue,
-              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-            ),
-            child: const Text('Iniciar sesión'),
-          ),
+          _isLoading
+              ? const Center(
+                  child: CircularProgressIndicator(), // Indicador de carga
+                )
+              : ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      _formKey.currentState!.save();
+                      _iniciarSesion();
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.blue,
+                    padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                  ),
+                  child: const Text('Iniciar sesión'),
+                ).animate().fadeIn(duration: 500.ms), // Animación de entrada suave
         ],
       ),
     );

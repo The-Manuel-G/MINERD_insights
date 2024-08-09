@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../components/HomeComponent.dart';
 import '../../components/BannerComponent.dart'; // Asegúrate de importar el BannerComponent
+import '../../components/WeatherAnimatedComponent.dart'; // Importa el componente animado del clima
 
 class InicioScreen extends StatelessWidget {
   const InicioScreen({super.key});
@@ -11,8 +12,7 @@ class InicioScreen extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           const SliverAppBar(
-            expandedHeight:
-                200.0, // Ajusta la altura del AppBar según sea necesario
+            expandedHeight: 200.0, // Ajusta la altura del AppBar según sea necesario
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
               background: BannerComponent(), // Incluye el BannerComponent aquí
@@ -22,6 +22,7 @@ class InicioScreen extends StatelessWidget {
             delegate: SliverChildListDelegate(
               [
                 const HomeComponent(), // Agrega el HomeComponent aquí
+                WeatherAnimatedComponent(), // Añade el nuevo componente animado
               ],
             ),
           ),
